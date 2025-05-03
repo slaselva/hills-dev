@@ -1,0 +1,52 @@
+---
+// src/components/EndUseItem.astro
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  label: string;
+  description: string;
+}
+
+const { label, description, ...attrs } = Astro.props;
+---
+
+<div class="end-use-item" {...attrs}>
+  <span class="label">{label}</span>
+  <p class="description">{description}</p>
+</div>
+
+<style>
+  .end-use-item {
+    /* Anatomy 1: Container styles */
+    border-left: 3px solid var(--color-teal500);
+    /* Layout & Spacing: Convert .65em padding-left to rem */
+    padding-left: 0.65rem; /* Using fixed rem for small internal padding */
+    /* Layout & Spacing: Convert .25em gap to rem using utility variable */
+    gap: var(--gap-1); /* 0.25rem */
+
+    /* Internal layout */
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .label {
+    color: var(--color-text-teal);
+    font-family: var(--ff-accent);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-fluid-label-md);
+    line-height: var(--lh-sm);
+    text-transform: uppercase;
+  }
+
+  .description {
+    /* Anatomy 3: Label Description styles */
+    color: var(--color-text-white);
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-regular);
+    /* Use fluid font size specified */
+    font-size: var(--fs-fluid-body-md);
+    line-height: var(--lh-base);
+    max-width: var(--max-w-text); /* Good practice for readability */
+  }
+</style>

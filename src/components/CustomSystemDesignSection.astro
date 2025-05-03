@@ -1,0 +1,417 @@
+---
+// src/components/CustomSystemDesignSection.astro
+import PolymerItem from './PolymerItem.astro';
+import EndUseItem from './EndUseItem.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+// --- Define Prop Structures ---
+interface Row1Data {
+  heading: string;
+  subheading: string;
+  pictureSources1: ImageSource[]; // Array of <source> definitions
+  fallbackImage1: FallbackImageData; // Data for the fallback <img>
+  pictureSources2: ImageSource[]; // Array of <source> definitions
+  fallbackImage2: FallbackImageData; // Data for the fallback <img>
+}
+
+interface ImageSource { media?: string; srcset: string; type?: string }
+interface FallbackImageData {
+  src: string;
+  srcset?: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface Polymer {
+  label: string;
+  svgMarkup: string;
+}
+interface ColumnContainerData {
+  subheading: string;
+  polymers: Polymer[];
+}
+interface EndUse {
+  label: string;
+  description: string;
+}
+interface Row3Data {
+  heading: string;
+  subheading: string;
+  endUses: EndUse[];
+}
+
+// --- Define Component Props ---
+interface Props extends HTMLAttributes<'section'> {
+  row1Data: Row1Data; 
+  columnContainerData: ColumnContainerData;
+  row3Data: Row3Data;
+}
+
+// --- Destructure Props ---
+const { row1Data, columnContainerData, row3Data, ...attrs } = Astro.props;
+---
+
+<section class="custom-system-design-section" {...attrs}>
+  {/* Row 1: Heading, Subheading, Image */}
+  <div class="row row-1" data-row-id="row-1">
+    {/* Renamed class for clarity and specific styling */}
+    <div class="row1-col1">
+      <h2 class="heading">{row1Data.heading}</h2>
+      <p class="subheading">{row1Data.subheading}</p>
+    </div>
+     {/* Renamed class for clarity */}
+    <div class="row1-col2">
+      <picture>
+        {row1Data.pictureSources1.map(source => (
+          <source
+            media={source.media}
+            srcset={source.srcset}
+            type={source.type}
+          />
+        ))}
+        <img
+          class="image image-1"
+          src={row1Data.fallbackImage1.src}
+          srcset={row1Data.fallbackImage1.srcset}
+          alt={row1Data.fallbackImage1.alt}
+          width={row1Data.fallbackImage1.width}
+          height={row1Data.fallbackImage1.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <picture>
+        {row1Data.pictureSources2.map(source => (
+          <source
+            media={source.media}
+            srcset={source.srcset}
+            type={source.type}
+          />
+        ))}
+        <img
+          class="image image-2"
+          src={row1Data.fallbackImage2.src}
+          srcset={row1Data.fallbackImage2.srcset}
+          alt={row1Data.fallbackImage2.alt}
+          width={row1Data.fallbackImage2.width}
+          height={row1Data.fallbackImage2.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    </div>
+  </div>
+
+  {/* Row 2: Container for the bordered Column Container */}
+  <div class="row row-2" data-row-id="row-2">
+    {/* Column Container: Subheading and Polymer List (bordered) */}
+    <div class="column-container" data-col-container-id="col-container-2">
+        <div class="column col-1">
+            <p class="subheading">{columnContainerData.subheading}</p>
+        </div>
+        <div class="column col-2 polymer-list-container">
+            <ul class="polymer-list">
+                {columnContainerData.polymers.map(polymer => (
+                    <li>
+                        <PolymerItem
+                            label={polymer.label}
+                            svgMarkup={polymer.svgMarkup}
+                        />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+  </div>
+
+  {/* Row 3: End Uses Heading/Subheading and List */}
+  <div class="row row-3" data-row-id="row-3">
+      <div class="column col-1">
+          <h2 class="heading">{row3Data.heading}</h2>
+          <p class="subheading">{row3Data.subheading}</p>
+      </div>
+      <div class="col-2 end-use-list-container">
+          <ul class="end-use-list">
+              {row3Data.endUses.map(item => (
+                  <li>
+                      <EndUseItem label={item.label} description={item.description} />
+                  </li>
+              ))}
+          </ul>
+      </div>
+  </div>
+</section>
+
+<style>
+    /* General Section Styles */
+    .custom-system-design-section {
+        background-color: var(--color-bg-dark);
+        color: var(--color-text-white);
+        padding: var(--space-section-padding, clamp(3rem, 5vw + 1rem, 6rem)) 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-fluid-xl, clamp(2rem, 4vw + 1rem, 4rem));
+        overflow: hidden;
+    }
+
+    /* Shared Row Styles */
+    .row {
+        display: flex;
+        width: var(--width-main);
+        max-width: var(--max-w-main);
+        margin-inline: auto;
+        container-type: inline-size;
+        container-name: row-container;
+    }
+
+    /* --- Row 1 Styles --- */
+    .row-1 {
+        display: grid; /* Use Grid for layout */
+        grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+        gap: var(--space-fluid-xl, clamp(2rem, 4vw + 1rem, 4rem));
+        align-items: flex-start; /* Align grid items to the top */
+        container-type: inline-size; /* Keep for queries */
+        container-name: row-container;
+    }
+    /* Specific style for text column */
+    .row1-col1 {
+        display: flex; /* Internal layout */
+        flex-direction: column;
+        gap: var(--space-fluid-m, clamp(1rem, 2vw + 0.5rem, 2rem));
+        min-width: 0; /* Grid safety */
+    }
+    /* Specific style for image column */
+    .row1-col2 {
+        position: relative; /* !!! Required for absolute positioning context */
+        min-width: 0; /* Grid safety */
+        /* Give it some height to prevent collapse IF image fails */
+        min-height: 200px;
+        /* Align self if needed within grid row */
+        align-self: stretch; /* Make it fill row height */
+    }
+    .row-1 .heading {
+        color: var(--color-text-teal);
+        font-family: var(--ff-accent);
+        font-weight: var(--fw-semibold);
+        font-size: var(--fs-fluid-heading-lg);
+        line-height: var(--lh-xxs);
+        text-transform: uppercase;
+        hyphens: auto;
+    }
+    .row-1 .subheading {
+        color: var(--color-text-white);
+        font-family: var(--ff-primary);
+        font-weight: var(--fw-regular);
+        font-size: var(--fs-fluid-body-lg);
+        line-height: var(--lh-md);
+        max-width: var(--max-w-text);
+    }
+    .row-1 .image {
+        display: block;
+        /* Default State (Stacked): In flow */
+        position: static;
+        width: auto;
+        height: auto;
+        max-width: none;
+        object-fit: cover;
+    }
+
+    .row-1 .image-2 {
+        transform: translate(100%, 0);
+    }
+
+    /* Row 1 Container Queries (Listening to '.row-1') */
+
+    
+    @container row-container (width <= 706px) {
+        .row[data-row-id="row-1"] .image-2 {
+            display: none;
+        }
+        
+    }
+
+    @container row-container (width >= 706px) {
+        .row[data-row-id="row-1"] .image {
+            /* Change to Absolute ONLY when side-by-side */
+            position: absolute;
+            width: auto; /* Fill the container (.row1-col2) */
+            height: auto;/* Fill the container (.row1-col2) */
+            top: 0;
+            left: 0;
+            /* Transition back instantly */
+            transition: none;
+        }
+        
+    }
+
+    @container row-container (width >= 76.5rem) {
+    /* Target the specific grid container using its data attribute */
+      .row-1[data-row-id="row-1"] {
+        grid-template-columns: 30% 1fr; /* Apply ~30% / 70% split */
+      }
+    /* Image stays absolute due to previous query */
+    }
+
+    @media (min-width: 90rem) {
+      .row-1 { /* Target the grid container directly */
+        grid-template-columns: 30% 1fr; /* Apply ~30% / 70% split */
+   }
+    } /* Approx 1224px */
+
+    /* --- Row 2 Styles --- */
+    .row-2 {
+        padding-block: var(--space-fluid-padding-row2, clamp(2rem, 3.6vw + 0.5rem, 3.6rem));
+    }
+
+    /* --- Column Container Styles (Child of Row 2) --- */
+    .column-container {
+        width: 100%; /* Default width, adjusted by parent CQs */
+        container-type: inline-size; /* Context for its own children */
+        container-name: column-container-context;
+        border-top: 1px solid var(--color-teal500);
+        border-bottom: 1px solid var(--color-teal500);
+        padding-block: var(--space-fluid-padding-col-container, clamp(2rem, 2.4vw + 0.5rem, 3.5rem));
+        display: flex;
+        flex-wrap: wrap; /* Allow columns inside to wrap */
+        gap: var(--space-fluid-m, clamp(1rem, 1vw + 0.5rem, 1.5rem));
+
+        /* Default basis/grow/shrink for child columns */
+        & > .col-1 { flex-grow: 1; flex-shrink: 1; flex-basis: 350px; min-width: 0; } /* Example basis, adjust as needed */
+        & > .col-2 { flex-grow: 1; flex-shrink: 1; flex-basis: 350px; min-width: 0; } /* Example basis, adjust as needed */
+
+        & .subheading {
+            color: var(--color-text-white);
+            font-family: var(--ff-primary);
+            font-weight: var(--fw-regular);
+            line-height: var(--lh-md);
+            font-size: var(--fs-fluid-body-md);
+            max-width: var(--max-w-text);
+        }
+        & .polymer-list-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            min-width: 0;
+        }
+        & .polymer-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap; /* Allow polymer items to wrap */
+            gap: var(--space-fluid-gap-polymer, clamp(0.75rem, 1.3vw + 0.25rem, 1.3rem));
+            flex-direction: row; /* Default vertical */
+            align-items: flex-start;
+            /* Removed width: 100%; */
+        }
+    }
+
+    /* ========================================================== */
+    /* COLUMN CONTAINER QUERIES */
+    /* ========================================================== */
+
+    /* --- Queries LISTENING TO PARENT '.row-2' (row-container) --- */
+
+    /* 1. Adjust .column-container width based on PARENT (.row-2) width */
+    @container row-container (width >= 51rem) and (width < 76.5rem) { /* Parent: 816px - 1224px */
+         .row[data-row-id="row-2"] > .column-container { width: 90%; }
+    }
+    @container row-container (width >= 76.5rem) { /* Parent: 1224px - 1950px */
+         .row[data-row-id="row-2"] > .column-container { width: 70%; }
+    }
+
+    /* 2. Force Columns Full Width Below Breakpoint (Uses PARENT context) */
+    @container row-container (width < 59.5rem) { /* Parent Row is < 952px */
+         /* Target the columns within this specific row */
+         .row[data-row-id="row-2"] > .column-container > .col-1,
+         .row[data-row-id="row-2"] > .column-container > .col-2 {
+             flex-basis: 100%; /* Force full width, ensuring wrap stacks */
+        }
+    }
+
+    /* --- Queries LISTENING TO '.column-container' ITSELF (column-container-context) --- */
+    /* Adjust INTERNAL layout based on .column-container's OWN calculated width */
+
+    /* Adjust internal column proportions (only when side-by-side) */
+    @container row-container (width >= 59.5rem) { /* PARENT >= 952px (columns are side-by-side) */
+        
+        /* Reset to default ~50/50 basis when side-by-side but container isn't wide enough for 60/40 */
+         @container column-container-context (width < 76.5rem) {
+             .column-container[data-col-container-id="col-container-2"] > .col-1,
+             .column-container[data-col-container-id="col-container-2"] > .col-2 {
+                 flex-basis: 21.875rem; /* Revert to initial basis -- width of Polymer List */
+                 flex-grow: 1;
+                 flex-shrink: 1;
+            }
+         }
+    }
+
+    /* Polymer list orientation (listens to column-container context) */
+     @container column-container-context (width >= 53.5rem) { /* Self: >= 952px */
+        .column-container[data-col-container-id="col-container-2"] .polymer-list { flex-direction: column; }
+    }
+
+    /* --- Row 3 Styles --- */
+    .row-3 {
+        gap: var(--space-fluid-l, clamp(1.5rem, 3vw + 0.5rem, 3rem));
+        align-items: start;
+        padding-top: var(--space-fluid-xl, clamp(2rem, 3.5vw + 0.5rem, 3.5rem));
+        padding-bottom: var(--space-fluid-m, clamp(1rem, 1.75vw + 0.5rem, 1.75rem));
+        flex-wrap: wrap;
+    }
+    .row-3 .col-1 {
+        width: 100%;
+        flex-shrink: 0;
+        gap: .25rem clamp(1rem, 2vw + 0.5rem, 4rem);
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+    }
+   
+    .row-3 .heading {
+        color: var(--color-text-teal);
+        font-family: var(--ff-accent);
+        font-weight: var(--fw-semibold);
+        font-size: var(--fs-fluid-heading-lg);
+        text-transform: uppercase;
+        line-height: var(--lh-xs);
+    }
+    .row-3 .subheading {
+        color: var(--color-text-white);
+        font-family: var(--ff-accent);
+        font-weight: var(--fw-medium);
+        font-size: var(--fs-fluid-heading-md);
+        text-transform: uppercase;
+        line-height: var(--lh-sm);
+        flex-basis: auto;
+    }
+
+    
+    .end-use-list-container {
+      width: 100%;
+    }
+    .end-use-list {
+        display: grid;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        gap: clamp(2rem, 3vw + 0.5rem, 3rem);
+        grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    }
+    .end-use-list li {
+        min-width: 0;
+    }
+
+    /* Row 3 Container Queries (Listening to '.row-3') */
+    @container row-container (width >= 41.25rem) {
+        .row[data-row-id="row-3"] .end-use-list { grid-template-columns: repeat(auto-fit, minmax(min(16.875rem, 100%), 1fr)); }
+    }
+    @container row-container (width >= 76.5rem) {
+        .row[data-row-id="row-3"] .end-use-list { grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr)); }
+    }
+
+</style>

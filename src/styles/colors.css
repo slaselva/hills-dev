@@ -1,0 +1,53 @@
+/* -------------------------------------------------------- */
+/* COLOR UTILITIES                                          */
+/* -------------------------------------------------------- */
+
+
+:root {
+    /* ---------- NEUTRAL ---------- */
+    --color-white: #fafafa;
+    --color-black: #2A2A2A;
+
+    /* ---------- GREY ---------- */
+    --color-grey100: #CDCFD2;
+    --color-grey200: #C1C3C7;
+    --color-grey300: #B5B7BB;
+    --color-grey400: #9C9FA5;
+    --color-grey500: #83878E;
+    --color-grey600: #696C72;
+    --color-grey700: #5C5F63;
+    --color-grey800: #4F5155;
+    --color-grey900: #343639;
+
+    /* ---------- TEAL ---------- */
+    --color-teal100: #AEE2DC;
+    --color-teal200: #9EDCD4;
+    --color-teal300: #8ED6CD;
+    --color-teal400: #7DD0C6;
+    --color-teal500: #00bfa5;
+    --color-teal600: #54B0A6;
+    --color-teal700: #4A9D93;
+    --color-teal800: #38766E;
+    --color-teal900: #2F625C;
+
+    /* ---------- TEXT ---------- */
+    --color-text-white: #fafafa;
+    --color-text-grey-light: #83878E;
+    --color-text-grey: #5C5F63;
+    --color-text-grey-dark: #343639;
+    --color-text-teal: #00bfa5;
+
+    /* ---------- BACKGROUNDS ---------- */
+    --color-bg-body: #fafafa;
+    --color-bg-hero: #83878E;
+    --color-bg-dark: #2A2A2A;
+}
+
+body {
+  background-color: var(--color-bg-body);
+}
+
+
+  /* -------------------------------------------------------- */
+  /* END OF COLOR UTILITIES                                   */
+  /* -------------------------------------------------------- */

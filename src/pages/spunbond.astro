@@ -1,0 +1,233 @@
+---
+// src/pages/spunbond.astro
+import BaseHead from '../components/BaseHead.astro';
+import CustomSystemDesignSection from '../components/CustomSystemDesignSection.astro';
+import ProcessHero from '../components/ProcessHero.astro';
+import type { Props as HeroProps } from '../components/ProcessHero.astro';
+import ImageDivider from '../components/ImageDivider.astro';
+import VideoDivider from '../components/VideoDivider.astro';
+import WhyChooseHills from '../components/WhyChooseHills.astro';
+import Footer from '../components/Footer.astro';
+
+// --- Define Content Specific to the Spunbond Page ---
+const pageMeta = {
+    title: "Spunbond Systems - Hills Inc.",
+    description: "Explore Hills Inc.'s advanced Spunbond systems featuring custom designs, versatile polymer processing, and real-world applications.",
+    canonicalUrl: "https://www.hillstestsite.com/spunbond",
+    ogImage: "https://www.hillstestsite.com/assets/og-images/spunbond-og.jpg",
+    ogImageAlt: "Diagram illustrating the Hills Inc. Spunbond process.",
+    siteName: "Hills Incorporated",
+    robots: "noindex, nofollow"
+};
+
+
+const spunbondHero: HeroProps = {
+	title: "SPUNBOND",
+	subheading: "Hills Inc.'s custom Spunbond systems enable the efficient production of high-quality nonwoven fabrics using a continuous, one-step process. By extruding molten polymer through a spinneret and bonding the resulting filaments, Spunbond technology creates strong, durable, and versatile nonwoven materials for a wide range of applications.",
+	pictureSources: [
+	{
+      media: "(max-width: 1024px)",
+      srcset: "../src/assets/hero_spunbond_1024_1x.png 1x, ../src/assets/hero_spunbond_1024_2x.png 2x, ../src/assets/hero_spunbond_1024_3x.png 3x", 
+      type: "image/webp"
+    },
+     
+     {
+       media: "(min-width: 1025px) and (max-width: 1920px)",
+       srcset: "../src/assets/hero_spunbond_1920_1x.png 1x, ../src/assets/hero_spunbond_1920_2x.png 2x, ../src/assets/hero_spunbond_1920_3x.png 3x", 
+       type: "image/webp"
+     },
+
+     {
+       media: "(min-width: 1921px)",
+       srcset: "../src/assets/hero_spunbond_2560_1x.png 1x, ../src/assets/hero_spunbond_2560_2x.png 2x, ../src/assets/hero_spunbond_2560_3x.png 3x" 
+     }
+    ],
+    fallbackImage: {
+        src: "../src/assets/hero_spunbond_2560_1x.png", // Fallback for older browsers
+        alt: "Stylized drawing of a Hills Inc. spunbond machine.",
+		width: 1315, // Example intrinsic width of default image
+        height: 800  // Example intrinsic height of default image
+    },
+	imageLayout: "layout-1"
+};
+
+// ** EXAMPLE SVG STRINGS **
+// Replace these with your actual SVG markup for each polymer icon
+const ppSvg = `<svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_561_228)">
+<path d="M32 0H16C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32H32C40.8366 32 48 24.8366 48 16C48 7.16344 40.8366 0 32 0Z" fill="#5DC4B8"/>
+<path d="M13.7998 24V10.04H18.8798C20.1731 10.04 21.1598 10.3934 21.8398 11.1C22.5198 11.8067 22.8598 12.7934 22.8598 14.06C22.8598 15.3267 22.5198 16.3134 21.8398 17.02C21.1598 17.7267 20.1731 18.08 18.8798 18.08H15.4798V24H13.7998ZM15.4798 16.62H18.8398C19.5465 16.62 20.0931 16.4467 20.4798 16.1C20.8798 15.74 21.0798 15.2334 21.0798 14.58V13.54C21.0798 12.8867 20.8798 12.3867 20.4798 12.04C20.0931 11.68 19.5465 11.5 18.8398 11.5H15.4798V16.62Z" fill="#2A2A2A"/>
+<path d="M25.792 24V10.04H30.872C32.1653 10.04 33.152 10.3934 33.832 11.1C34.512 11.8067 34.852 12.7934 34.852 14.06C34.852 15.3267 34.512 16.3134 33.832 17.02C33.152 17.7267 32.1653 18.08 30.872 18.08H27.472V24H25.792ZM27.472 16.62H30.832C31.5387 16.62 32.0853 16.4467 32.472 16.1C32.872 15.74 33.072 15.2334 33.072 14.58V13.54C33.072 12.8867 32.872 12.3867 32.472 12.04C32.0853 11.68 31.5387 11.5 30.832 11.5H27.472V16.62Z" fill="#2A2A2A"/></g><defs><clipPath id="clip0_561_228"><rect width="48" height="32" fill="white"/></clipPath></defs></svg>`;
+const paSvg = `<svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_561_239)">
+<path d="M32 0H16C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32H32C40.8366 32 48 24.8366 48 16C48 7.16344 40.8366 0 32 0Z" fill="#5DC4B8"/>
+<path d="M13.7998 24V10.04H18.8798C20.1731 10.04 21.1598 10.3933 21.8398 11.1C22.5198 11.8067 22.8598 12.7933 22.8598 14.06C22.8598 15.3267 22.5198 16.3133 21.8398 17.02C21.1598 17.7267 20.1731 18.08 18.8798 18.08H15.4798V24H13.7998ZM15.4798 16.62H18.8398C19.5465 16.62 20.0931 16.4467 20.4798 16.1C20.8798 15.74 21.0798 15.2333 21.0798 14.58V13.54C21.0798 12.8867 20.8798 12.3867 20.4798 12.04C20.0931 11.68 19.5465 11.5 18.8398 11.5H15.4798V16.62ZM33.612 24L32.432 20.02H27.532L26.352 24H24.612L28.892 10.04H31.112L35.392 24H33.612ZM30.072 11.82H29.892L27.932 18.56H32.032L30.072 11.82Z" fill="#2A2A2A"/></g><defs><clipPath id="clip0_561_239"><rect width="48" height="32" fill="white"/></clipPath></defs></svg>`;
+const petSvg = `<svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_561_242)">
+<path d="M32 0H16C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32H32C40.8366 32 48 24.8366 48 16C48 7.16344 40.8366 0 32 0Z" fill="#5DC4B8"/>
+<path d="M7.7998 24V10.04H12.8798C14.1731 10.04 15.1598 10.3933 15.8398 11.1C16.5198 11.8067 16.8598 12.7933 16.8598 14.06C16.8598 15.3267 16.5198 16.3133 15.8398 17.02C15.1598 17.7267 14.1731 18.08 12.8798 18.08H9.4798V24H7.7998ZM9.4798 16.62H12.8398C13.5465 16.62 14.0931 16.4467 14.4798 16.1C14.8798 15.74 15.0798 15.2333 15.0798 14.58V13.54C15.0798 12.8867 14.8798 12.3867 14.4798 12.04C14.0931 11.68 13.5465 11.5 12.8398 11.5H9.4798V16.62ZM19.792 24V10.04H28.392V11.5H21.472V16.2H28.152V17.66H21.472V22.54H28.392V24H19.792ZM36.8242 11.5V24H35.1442V11.5H30.4842V10.04H41.4842V11.5H36.8242Z" fill="#2A2A2A"/></g><defs><clipPath id="clip0_561_242"><rect width="48" height="32" fill="white"/></clipPath></defs></svg>`;
+
+const spunbondRow1Data = {
+  heading: 'CUSTOM SYSTEM DESIGN',
+  subheading: "The modular design of our systems allows for customization of key components, such as spinnerets, quenching systems, and bonding units, enabling the production of Spunbond fabrics with tailored properties for specific end-uses.",
+  pictureSources1: [
+    {
+      media: "(max-width: 833px)",
+      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",  
+      type: "image/webp"
+    },
+     
+     {
+       media: "(min-width: 834px) and (max-width: 1023px)",
+       srcset: "../src/assets/spunbond_csd_2560_1x.png 1x, ../src/assets/spunbond_csd_2560_2x.png 2x, ../src/assets/spunbond_csd_2560_3x.png 3x", 
+       type: "image/webp"
+     },
+
+     {
+       media: "(min-width: 1024px) and (max-width: 1439px)",
+       srcset: "../src/assets/spunbond_csd_2560_1x.png 1x, ../src/assets/spunbond_csd_2560_2x.png 2x, ../src/assets/spunbond_csd_2560_3x.png 3x" 
+     },
+     
+     {
+       media: "(min-width: 1440px)",
+       srcset: "../src/assets/spunbond_csd_2560_1x.png 1x, ../src/assets/spunbond_csd_2560_2x.png 2x, ../src/assets/spunbond_csd_2560_3x.png 3x" 
+     }
+     
+  ],
+  fallbackImage1: {
+    src: "../src/assets/spinbeam_1440_1x.png",
+    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
+    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
+    width: 1000, // Intrinsic width of the DEFAULT (src) image
+    height: 500 // Intrinsic height of the DEFAULT (src) image
+  },
+  pictureSources2: [
+    {
+      media: "(max-width: 833px)",
+      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x", 
+      type: "image/webp"
+    },
+     
+     {
+       media: "(min-width: 834px) and (max-width: 1023px)",
+       srcset: "../src/assets/spunbond_csd_2_2560_1x.png 1x, ../src/assets/spunbond_csd_2_2560_2x.png 2x, ../src/assets/spunbond_csd_2_2560_3x.png 3x", 
+       type: "image/webp"
+     },
+
+     {
+       media: "(min-width: 1024px) and (max-width: 1439px)",
+       srcset: "../src/assets/spunbond_csd_2_2560_1x.png 1x, ../src/assets/spunbond_csd_2_2560_2x.png 2x, ../src/assets/spunbond_csd_2_2560_3x.png 3x" 
+     },
+     
+     {
+       media: "(min-width: 1440px)",
+       srcset: "../src/assets/spunbond_csd_2_2560_1x.png 1x, ../src/assets/spunbond_csd_2_2560_2x.png 2x, ../src/assets/spunbond_csd_2_2560_3x.png 3x" 
+     }
+     
+  ],
+  fallbackImage2: {
+    src: "../src/assets/spinbeam_1440_1x.png",
+    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
+    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
+    width: 603, // Intrinsic width of the DEFAULT (src) image
+    height: 377 // Intrinsic height of the DEFAULT (src) image
+  }
+};
+
+const spunbondColumnContainerData = {
+  subheading: "Hills' Spunbond equipment is designed to process various polymers while maintaining consistent fiber quality and web uniformity. In addition, new and upcoming textile grade bio-polymers can also be processed.",
+  polymers: [
+    // Pass the actual SVG string instead of just an ID
+    { label: 'Polypropylene', svgMarkup: ppSvg },
+    { label: 'Polyamide', svgMarkup: paSvg },
+    { label: 'Polyethylene Terephthalate', svgMarkup: petSvg },
+  ]
+};
+
+const spunbondRow3Data = {
+  heading: 'END-USES',
+  subheading: 'REAL-WORLD PRACTICAL APPLICATIONS',
+  endUses: [
+    { label: 'MEDICAL DISPOSABLES', description: 'Surgical gowns, drapes, and sterilization wraps' },
+    { label: 'GEOTEXTILES', description: 'Soil stabilization, erosion control, and road construction' },
+    { label: 'AUTOMOTIVE APPLICATIONS', description: 'Carpet backing, trunk liners, and air filters' },
+    { label: 'AGRICULTURAL COVERS', description: 'Crop protection and weed control fabrics' },
+  ]
+};
+
+const whyChooseData = {
+  title: "WHY<br>CHOOSE<br>HILLS?", // Use <br> for line breaks
+  accordionItems: [
+    {
+      heading: "Endless Possibilities and Flexibility",
+      content: "Unlimited potential for varying polymer distribution i.e. cross-section profiles and ratios, within the fibers enabling customization and versatility.",
+      isOpenDefault: true // Make first item open
+    },
+    {
+      heading: "Cost Reduction",
+      content: "Optimized processes and reduced waste help lower overall production costs."
+    },
+    {
+      heading: "Increased Production Rates",
+      content: "High-speed throughput meets the demands of large-scale manufacturing."
+    },
+    {
+      heading: "Highly Detailed Cross-Sections",
+      content: "Precision engineering allows for intricate fiber geometries tailored to specific performance requirements."
+    },
+    {
+      heading: "Sustainability",
+      content: "Energy-efficient systems and support for emerging bio-polymers reduce environmental impact."
+    },
+    {
+      heading: "Fully Customized Machines",
+      content: "Modular design allows tailoring each system to specific throughput, denier, or application requirements."
+    },
+    {
+      heading: "In-House Lab and Equipment",
+      content: "Our on-site research and development facilities enable rapid prototyping and testing."
+    }
+  ],
+  // Replace with your actual illustration path (relative to /public)
+//   illustrationSrc: "../src/assets/spunbond-bico.png",
+//   illustrationAlt: "Illustration of Hills Inc. bicomponent spunbond machine configuration."
+};
+
+const footerDividerData = {
+    // Replace with your actual image paths (relative to /public/)
+    desktopImageSrc: "../src/assets/image-divider_footer.png",
+    mobileImageSrc: "../src/assets/image-divider_footer.png", // Use same or different image
+    alt: "Close-up texture of nonwoven spunbond fabric.",
+};
+
+const spunbondVideoDividerData = {
+    sources: [
+        { src: "../src/assets/video-divider_spunbond.mp4", type: "video/mp4" }
+    ],
+    posterSrc: "../src/assets/video-poster.jpg",
+};
+
+---
+
+<html lang="en">
+<head>
+	<BaseHead {...pageMeta} />
+</head>
+<body>
+    <main>
+		<ProcessHero {...spunbondHero} />
+		<VideoDivider {...spunbondVideoDividerData} />
+		<!-- <ImageDivider {...spunbondDividerData} /> -->
+        <CustomSystemDesignSection
+            row1Data={spunbondRow1Data}
+            columnContainerData={spunbondColumnContainerData}
+            row3Data={spunbondRow3Data}
+        />
+		<WhyChooseHills {...whyChooseData} />
+		<ImageDivider {...footerDividerData} />
+		<Footer />
+
+        <!-- Other page content would go here -->
+    </main>
+</body>
+</html>

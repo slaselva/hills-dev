@@ -1,0 +1,230 @@
+---
+// src/pages/meltblown.astro
+import BaseHead from '../components/BaseHead.astro';
+import CustomSystemDesignSection from '../components/CustomSystemDesignSection.astro';
+import ProcessHero from '../components/ProcessHero.astro';
+import type { Props as HeroProps } from '../components/ProcessHero.astro';
+import VideoDivider from '../components/VideoDivider.astro';
+import WhyChooseHills from '../components/WhyChooseHills.astro';
+import ImageDivider from '../components/ImageDivider.astro';
+import Footer from '../components/Footer.astro';
+
+// --- Define Content Specific to the Spunbond Page ---
+const pageMeta = {
+    title: "Meltblown Systems - Hills Inc.",
+    description: "Explore Hills Inc.'s advanced Meltblown systems featuring custom designs, versatile polymer processing, and real-world applications.",
+    canonicalUrl: "https://www.hillstestsite.com/meltblown",
+    ogImage: "https://www.hillstestsite.com/assets/og-images/spunbond-og.jpg",
+    ogImageAlt: "Diagram illustrating the Hills Inc. Spunbond process.",
+    siteName: "Hills Incorporated",
+    robots: "noindex, nofollow"
+};
+
+const meltblownHero: HeroProps = {
+	title: "MELTBLOWN",
+	subheading: "Hills Inc.'s meltblown systems utilize our propietary polymer metering and distribution technology to produce high-quality nonwoven fabrics with fine fibers and tailored properties. By extruding molten polymer through a linear die and attenuating the fibers with high-velocity hot air, meltblown technology creates self-bonding webs.",
+	pictureSources: [
+	{
+      media: "(max-width: 1024px)",
+      srcset: "../src/assets/hero_meltblown_2560_1x.png 1x, ../src/assets/hero_meltblown_2560_2x.png 2x, ../src/assets/hero_meltblown_2560_3x.png 3x", 
+      type: "image/webp"
+    },
+     
+     {
+       media: "(min-width: 1025px) and (max-width: 1920px)",
+       srcset: "../src/assets/hero_meltblown_2560_1x.png 1x, ../src/assets/hero_meltblown_2560_2x.png 2x, ../src/assets/hero_meltblown_2560_3x.png 3x", 
+       type: "image/webp"
+     },
+
+     {
+       media: "(min-width: 1921px)",
+       srcset: "../src/assets/hero_meltblown_2560_1x.png 1x, ../src/assets/hero_meltblown_2560_2x.png 2x, ../src/assets/hero_meltblown_2560_3x.png 3x" 
+     }
+    ],
+    fallbackImage: {
+        src: "../src/assets/hero_meltblown_2560_1x.png", // Fallback for older browsers
+        alt: "Stylized drawing of a Hills Inc. spunbond machine.",
+		width: 1315, // Example intrinsic width of default image
+        height: 800  // Example intrinsic height of default image
+    },
+    imageLayout: "layout-1"
+};
+
+const meltblownVideoDividerData = {
+    sources: [
+        { src: "../src/assets/video-divider_meltblown.mp4", type: "video/mp4" }
+    ],
+    posterSrc: "../src/assets/video-poster.jpg",
+};
+
+// ** EXAMPLE SVG STRINGS **
+// Replace these with your actual SVG markup for each polymer icon
+const ppSvg = `<svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_561_228)">
+<path d="M32 0H16C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32H32C40.8366 32 48 24.8366 48 16C48 7.16344 40.8366 0 32 0Z" fill="#5DC4B8"/>
+<path d="M13.7998 24V10.04H18.8798C20.1731 10.04 21.1598 10.3934 21.8398 11.1C22.5198 11.8067 22.8598 12.7934 22.8598 14.06C22.8598 15.3267 22.5198 16.3134 21.8398 17.02C21.1598 17.7267 20.1731 18.08 18.8798 18.08H15.4798V24H13.7998ZM15.4798 16.62H18.8398C19.5465 16.62 20.0931 16.4467 20.4798 16.1C20.8798 15.74 21.0798 15.2334 21.0798 14.58V13.54C21.0798 12.8867 20.8798 12.3867 20.4798 12.04C20.0931 11.68 19.5465 11.5 18.8398 11.5H15.4798V16.62Z" fill="#2A2A2A"/>
+<path d="M25.792 24V10.04H30.872C32.1653 10.04 33.152 10.3934 33.832 11.1C34.512 11.8067 34.852 12.7934 34.852 14.06C34.852 15.3267 34.512 16.3134 33.832 17.02C33.152 17.7267 32.1653 18.08 30.872 18.08H27.472V24H25.792ZM27.472 16.62H30.832C31.5387 16.62 32.0853 16.4467 32.472 16.1C32.872 15.74 33.072 15.2334 33.072 14.58V13.54C33.072 12.8867 32.872 12.3867 32.472 12.04C32.0853 11.68 31.5387 11.5 30.832 11.5H27.472V16.62Z" fill="#2A2A2A"/></g><defs><clipPath id="clip0_561_228"><rect width="48" height="32" fill="white"/></clipPath></defs></svg>`;
+const peSvg = `<svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_644_155880)">
+<path d="M32 0H16C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32H32C40.8366 32 48 24.8366 48 16C48 7.16344 40.8366 0 32 0Z" fill="#5DC4B8"/>
+<path d="M13.8 24V10.04H18.88C20.1734 10.04 21.16 10.3934 21.84 11.1C22.52 11.8067 22.86 12.7934 22.86 14.06C22.86 15.3267 22.52 16.3134 21.84 17.02C21.16 17.7267 20.1734 18.08 18.88 18.08H15.48V24H13.8ZM15.48 16.62H18.84C19.5467 16.62 20.0934 16.4467 20.48 16.1C20.88 15.74 21.08 15.2334 21.08 14.58V13.54C21.08 12.8867 20.88 12.3867 20.48 12.04C20.0934 11.68 19.5467 11.5 18.84 11.5H15.48V16.62Z" fill="#2A2A2A"/>
+<path d="M25.7922 24V10.04H34.3922V11.5H27.4722V16.2H34.1522V17.66H27.4722V22.54H34.3922V24H25.7922Z" fill="#2A2A2A"/>
+</g><defs><clipPath id="clip0_644_155880"><rect width="48" height="32" fill="white"/></clipPath></defs></svg>`;
+const pcSvg = `<svg width="49" height="32" viewBox="0 0 49 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.199951" width="48" height="32" rx="16" fill="#5DC4B8"/>
+<path d="M14 24V10.04H19.08C20.3733 10.04 21.36 10.3934 22.04 11.1C22.72 11.8067 23.06 12.7934 23.06 14.06C23.06 15.3267 22.72 16.3134 22.04 17.02C21.36 17.7267 20.3733 18.08 19.08 18.08H15.68V24H14ZM15.68 16.62H19.04C19.7467 16.62 20.2933 16.4467 20.68 16.1C21.08 15.74 21.28 15.2334 21.28 14.58V13.54C21.28 12.8867 21.08 12.3867 20.68 12.04C20.2933 11.68 19.7467 11.5 19.04 11.5H15.68V16.62Z" fill="#2A2A2A"/>
+<path d="M30.6522 24.24C28.9455 24.24 27.6722 23.62 26.8322 22.38C26.0055 21.14 25.5922 19.3534 25.5922 17.02C25.5922 14.6867 26.0055 12.9 26.8322 11.66C27.6722 10.42 28.9455 9.80005 30.6522 9.80005C31.2922 9.80005 31.8455 9.88672 32.3122 10.06C32.7789 10.2334 33.1789 10.4667 33.5122 10.76C33.8455 11.0534 34.1255 11.3867 34.3522 11.76C34.5789 12.12 34.7789 12.4867 34.9522 12.86L33.5122 13.52C33.3922 13.2134 33.2522 12.9267 33.0922 12.66C32.9322 12.38 32.7389 12.14 32.5122 11.94C32.2989 11.7267 32.0389 11.56 31.7322 11.44C31.4389 11.32 31.0789 11.26 30.6522 11.26C29.5455 11.26 28.7189 11.68 28.1722 12.52C27.6389 13.36 27.3722 14.48 27.3722 15.88V18.16C27.3722 19.56 27.6389 20.68 28.1722 21.52C28.7189 22.36 29.5455 22.78 30.6522 22.78C31.0789 22.78 31.4389 22.72 31.7322 22.6C32.0389 22.48 32.2989 22.32 32.5122 22.12C32.7389 21.9067 32.9322 21.6667 33.0922 21.4C33.2522 21.12 33.3922 20.8267 33.5122 20.52L34.9522 21.18C34.7789 21.5667 34.5789 21.94 34.3522 22.3C34.1255 22.66 33.8455 22.9867 33.5122 23.28C33.1789 23.5734 32.7789 23.8067 32.3122 23.98C31.8455 24.1534 31.2922 24.24 30.6522 24.24Z" fill="#2A2A2A"/></svg>`;
+
+const meltblownRow1Data = {
+  heading: 'CUSTOM SYSTEM DESIGN',
+  subheading: "The design of our systems allows for customizable configurations, enabling the production of nonwoven fabrics with specific properties for diverse applications.",
+  pictureSources1: [
+    {
+      media: "(max-width: 833px)",
+      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",
+    },
+     
+     {
+       media: "(min-width: 834px) and (max-width: 1023px)",
+       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
+     },
+
+     {
+       media: "(min-width: 1024px) and (max-width: 1439px)",
+       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
+     },
+     
+     {
+       media: "(min-width: 1440px)",
+       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
+     }
+     
+  ],
+  fallbackImage1: {
+    src: "../src/assets/spinbeam_1440_1x.png", // Default fallback for old browsers
+    // You could add srcset here too if needed for the absolute fallback
+    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
+    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
+    width: 1000, // Intrinsic width of the DEFAULT (src) image
+    height: 500 // Intrinsic height of the DEFAULT (src) image
+  },
+  pictureSources2: [
+    {
+      media: "(max-width: 833px)",
+      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",
+    },
+     
+     {
+       media: "(min-width: 834px) and (max-width: 1023px)",
+       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x"
+     },
+
+     {
+       media: "(min-width: 1024px) and (max-width: 1439px)",
+       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x"  
+     },
+     
+     {
+       media: "(min-width: 1440px)",
+       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x" 
+     }
+     
+  ],
+  fallbackImage2: {
+    src: "../src/assets/spinbeam_1440_1x.png",
+    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
+    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
+    width: 603, // Intrinsic width of the DEFAULT (src) image
+    height: 377 // Intrinsic height of the DEFAULT (src) image
+  }
+};
+
+const meltblownColumnContainerData = {
+  subheading: "Hills' meltblown equipment is engineered to process a wide range of polymers, including those with high viscosity or thermal sensitivity, thanks to precise control over temperature, pressure, and airflow.",
+  polymers: [
+    // Pass the actual SVG string instead of just an ID
+    { label: 'Polypropylene', svgMarkup: ppSvg },
+    { label: 'Polyethylene', svgMarkup: peSvg },
+    { label: 'Polycarbonate', svgMarkup: pcSvg },
+  ]
+};
+
+const meltblownRow3Data = {
+  heading: 'END-USES',
+  subheading: 'REAL-WORLD PRACTICAL APPLICATIONS',
+  endUses: [
+    { label: 'FILTRATION', description: 'High-efficiency filtration for air, liquid, and oil' },
+    { label: 'INSULATION', description: 'Thermal and acoustic insulation' },
+    { label: 'MEDICAL PPE', description: 'Breathable barrier fabrics for medical and hygiene products' },
+    { label: 'INDUSTRIAL CLEANING', description: 'Absorbent materials for oil and chemical spills' },
+  ]
+};
+
+const whyChooseData = {
+  title: "WHY<br>CHOOSE<br>HILLS?", // Use <br> for line breaks
+  accordionItems: [
+    {
+      heading: "Endless Possibilities and Flexibility",
+      content: "Unlimited potential for varying polymer distribution i.e. cross-section profiles and ratios, within the fibers enabling customization and versatility.",
+      isOpenDefault: true // Make first item open
+    },
+    {
+      heading: "Cost Reduction",
+      content: "Optimized processes and reduced waste help lower overall production costs."
+    },
+    {
+      heading: "Increased Production Rates",
+      content: "High-speed throughput meets the demands of large-scale manufacturing."
+    },
+    {
+      heading: "Highly Detailed Cross-Sections",
+      content: "Precision engineering allows for intricate fiber geometries tailored to specific performance requirements."
+    },
+    {
+      heading: "Sustainability",
+      content: "Energy-efficient systems and support for emerging bio-polymers reduce environmental impact."
+    },
+    {
+      heading: "Fully Customized Machines",
+      content: "Modular design allows tailoring each system to specific throughput, denier, or application requirements."
+    },
+    {
+      heading: "In-House Lab and Equipment",
+      content: "Our on-site research and development facilities enable rapid prototyping and testing."
+    }
+  ],
+  // Replace with your actual illustration path (relative to /public)
+//   illustrationSrc: "../src/assets/spunbond-bico.png",
+//   illustrationAlt: "Illustration of Hills Inc. bicomponent spunbond machine configuration."
+};
+
+const footerDividerData = {
+    // Replace with your actual image paths (relative to /public/)
+    desktopImageSrc: "../src/assets/image-divider_footer.png",
+    mobileImageSrc: "../src/assets/image-divider_footer.png", // Use same or different image
+    alt: "Close-up texture of nonwoven spunbond fabric.",
+};
+
+---
+
+<html lang="en">
+<head>
+  <BaseHead {...pageMeta} />
+</head>
+<body>
+    <main>
+		<ProcessHero {...meltblownHero} />
+		<VideoDivider {...meltblownVideoDividerData} />
+    <CustomSystemDesignSection
+        row1Data={meltblownRow1Data}
+        columnContainerData={meltblownColumnContainerData}
+        row3Data={meltblownRow3Data}
+    />
+		<WhyChooseHills {...whyChooseData} />
+    <ImageDivider {...footerDividerData} />
+    <Footer />
+
+        <!-- Other page content would go here -->
+    </main>
+</body>
+</html>

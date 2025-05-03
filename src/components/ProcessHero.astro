@@ -1,0 +1,198 @@
+---
+// Reusable Hero section component for Custom Systems pages.
+import Nav from '../components/Nav.astro';
+
+// Reusable interface for picture sources
+interface ImageSource {
+  media?: string;
+  srcset: string;
+  type?: string;
+}
+
+// Reusable interface for fallback image data
+interface FallbackImageData {
+  src: string;
+  srcset?: string;
+  alt: string; // Alt text is crucial here
+  width: number; // Required for layout stability
+  height: number; // Required for layout stability
+}
+
+// Define the properties (props) this component accepts
+export interface Props {
+  title: string;
+  subheading: string;
+  pictureSources: ImageSource[];
+  fallbackImage: FallbackImageData;
+  imageLayout?: 'layout-1' | 'layout-2';
+}
+
+const { title, subheading, pictureSources, fallbackImage, imageLayout = 'layout-1' }
+  = Astro.props as Props;
+---
+
+<section class="hero">
+  <Nav />
+  <div class="hero-content">
+    <div class="heading-container">
+      <h1 class="heading">{title}</h1>
+      <div class="hero-line"></div>
+      <p class="subheading">{subheading}</p>
+    </div>
+    <div class="hero-image">
+      <picture>
+        {pictureSources.map(source => (
+          <source
+            media={source.media}
+            srcset={source.srcset}
+            type={source.type}
+          />
+        ))}
+        {/* Fallback <img> element */}
+        <img
+          src={fallbackImage.src}
+          srcset={fallbackImage.srcset}
+          alt={fallbackImage.alt}
+          width={fallbackImage.width}
+          height={fallbackImage.height}
+          loading="lazy"
+          decoding="async"
+          class:list={[
+            "hero-image-tag", // Base class
+            { 'image-layout-1': imageLayout === 'layout-1' },
+            { 'image-layout-2': imageLayout === 'layout-2' }
+          ]}
+        />
+      </picture>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    background-color: var(--color-bg-hero); 
+    height: calc(var(--vh) * 100);
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 43% 1fr; /* Column 1 takes available 50%, Column 2 sizes to content */
+    width: var(--width-main);
+    max-width: var(--max-w-main); 
+    margin: 0 auto;
+    position: relative;
+    align-self: center;
+    margin-top: -6.375rem; 
+  }
+
+  .heading-container {
+    grid-column: 1;
+    overflow: visible;
+  }
+
+  .heading {
+    font-family: var(--ff-accent);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-fluid-heading-lg); 
+    text-transform: uppercase;
+    color: var(--color-white);
+  }
+
+  .hero-line {
+    background-color: var(--color-white);
+    height: 2px;
+    width: 75vw;
+    z-index: 0; /* Sits behind text/image if they overlap */
+  }
+
+  .subheading {
+    color: var(--color-white);
+    line-height: var(--lh-md);
+    font-family: var(--ff-primary);
+    font-size: var(--fs-fluid-body-md);
+    max-width: var(--max-w-text);
+    font-weight: var(--fw-light); 
+    padding-top: clamp(2rem, 2.4vw + 0.5rem, 3.5rem);
+  }
+
+  .hero-image {
+    position: relative;
+    height: 100%;
+    grid-column: 2;
+    z-index: 2; /* Ensures image is above the line */
+  }
+
+  .hero-image img {
+    display: block; /* Remove extra space below image */
+    position: absolute;
+    width: 100%; /* Make image responsive within its container */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+    /* Style variation for vertical images */
+  .hero-image-tag.image-layout-1 {
+    width: 100%;
+    transform: translate(0, -18%);
+    left: 10%;
+    min-width: 47rem;
+  }
+
+  /* Style variation for horizontal images (might be the default) */
+  .hero-image-tag.image-layout-2 {
+    max-width: 51rem;
+    transform: translate(0, -22%);
+    left: 29%;
+  }
+
+  @media (max-width: 64rem) {
+      .hero-content {
+        grid-template-rows: auto 1fr;
+        grid-template-columns: auto;
+        margin: 0 auto;
+        gap: 5rem;
+      }
+
+      .heading-container {
+        grid-row: 1;
+      }
+
+      .hero-image {
+        min-width: auto;
+        grid-row: 2;
+        grid-column: 1;
+      }
+
+      .hero-image img {
+        position: relative;
+      }
+
+      .hero-image-tag.image-layout-1, .hero-image-tag.image-layout-2 {
+        left: auto;
+        transform: none;
+        justify-self: center;
+      }
+
+      .hero-image-tag.image-layout-1 {
+        min-width: auto;
+      }
+
+      .hero-image-tag.image-layout-2 {
+        max-width: 40rem;
+      }
+   }
+
+</style>
+
+<script>
+  function setVh() {
+    document.documentElement.style.setProperty(
+      '--vh',
+      `${window.innerHeight * 0.01}px`
+    );
+  }
+  window.addEventListener('resize', setVh);
+  setVh();
+</script>

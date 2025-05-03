@@ -1,0 +1,85 @@
+---
+// src/components/BaseHead.astro
+// Provides common <head> elements for site pages.
+
+import type { HTMLAttributes } from 'astro/types'; // Import if you might spread extra attrs later
+import '../styles/global.css'; // Import global CSS bundle
+
+// Define the properties (props) this component accepts
+export interface Props {
+  title: string;             // Required: Page title (appears in tab, SERPs)
+  description: string;       // Required: Page description (for SEO, sharing)
+  canonicalUrl: string;      // Required: Absolute URL of the current page
+  ogImage?: string;          // Optional: Absolute URL for Open Graph image (for social sharing)
+  ogImageAlt?: string;       // Optional: Alt text for the OG image (strongly recommended if ogImage is set)
+  siteName?: string;         // Optional: Site name for Open Graph (defaults to "Hills Inc.")
+  robots?: string;           // Optional: Robots meta tag content (defaults to "index, follow")
+}
+
+// Get props and set defaults
+const {
+  title,
+  description,
+  canonicalUrl, // Ensure this is the full absolute URL (e.g., https://www.hillsinc.com/spunbond)
+  ogImage,      // Ensure this is the full absolute URL to the image
+  ogImageAlt = 'Hills Inc. machinery or technology graphic', // Provide a generic default alt
+  siteName = 'Hills Inc.',
+  robots = 'index, follow',
+  // ...rest // Allow passing other attributes if needed, though usually not for <head>
+} = Astro.props;
+
+// Basic validation/warning for OG image alt text
+if (ogImage && !ogImageAlt) {
+  console.warn(`Warning: OG image specified (${ogImage}) but no ogImageAlt provided for BaseHead component. Alt text is important for accessibility.`);
+}
+
+// Construct full title for OG/Twitter (maybe append site name)
+const fullTitle = `${title} | ${siteName}`;
+
+---
+{/* Note: This component outputs the <head>, not the full <html> structure unless desired */}
+{/* Usually, <html> tag is in a layout component */}
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {/* --- Core Meta --- */}
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta name="robots" content={robots} />
+
+  {/* --- Favicons --- */}
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {/* Add other favicon links if needed (apple-touch-icon, etc.) */}
+  {/* <link rel="apple-touch-icon" href="/apple-touch-icon.png"> */}
+  {/* <link rel="manifest" href="/site.webmanifest"> */}
+
+  {/* --- Open Graph (for Facebook, LinkedIn, etc.) --- */}
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" /> {/* Or "article" for blog posts */}
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content={siteName} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  {ogImage && ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+  {/* Optional: Add og:locale if needed */}
+  {/* <meta property="og:locale" content="en_US" /> */}
+
+  {/* --- Twitter Card --- */}
+  <meta name="twitter:card" content="summary_large_image" />
+  {/* Optional: Add Twitter site handle if available */}
+  {/* <meta name="twitter:site" content="@YourTwitterHandle"> */}
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  {ogImage && <meta name="twitter:image" content={ogImage} />}
+  {ogImage && ogImageAlt && <meta name="twitter:image:alt" content={ogImageAlt} />}
+
+
+  {/* --- Astro Generator --- */}
+  <meta name="generator" content={Astro.generator} />
+
+  {/* --- Allow passing additional head elements via slots if complex --- */}
+  <slot name="head-end" />
+</head>

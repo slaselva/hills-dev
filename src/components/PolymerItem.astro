@@ -1,0 +1,44 @@
+---
+// src/components/PolymerItem.astro
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  label: string;
+  svgMarkup: string; // Changed from svgId to accept full SVG string
+}
+
+// Destructure the new prop
+const { label, svgMarkup, ...attrs } = Astro.props;
+
+// No need for placeholder generation logic anymore
+---
+
+<div class="polymer-item" {...attrs}>
+  {/* Use set:html to render the passed SVG markup */}
+  <Fragment set:html={svgMarkup} />
+  <span class="label">{label}</span>
+</div>
+
+<style>
+  .polymer-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-2); /* 0.5rem */
+  }
+
+  .label {
+    color: var(--color-teal500);
+    font-family: var(--ff-accent);
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-fluid-label-sm);
+    line-height: var(--lh-sm);
+    white-space: nowrap;
+  }
+
+  /* :global selector needed as SVG is injected via set:html */
+  .polymer-item :global(svg) {
+    width: auto; /* Allow intrinsic width */
+    flex-shrink: 0;
+    
+  }
+</style>

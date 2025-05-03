@@ -1,0 +1,14 @@
+/* -------------------------------------------------------- */
+/* SIZING UTILITIES                                          */
+/* -------------------------------------------------------- */
+
+
+:root {
+   --width-main: 85%; /* Width for main content containers inside sections */
+   --max-w-main: 121.875rem; /* Max width for main content containers inside sections */
+   --max-w-text: 65ch; /* Max width for paragraphs */
+}
+
+  /* -------------------------------------------------------- */
+  /* END OF SIZING UTILITIES                                  */
+  /* -------------------------------------------------------- */

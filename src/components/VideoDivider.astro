@@ -1,0 +1,167 @@
+---
+// src/components/VideoDivider.astro
+
+import type { HTMLAttributes } from 'astro/types';
+
+interface VideoSource {
+  src: string;  // Path to the video file for this source
+  type: string; // MIME type (e.g., "video/mp4", "video/webm")
+}
+
+// Define the properties this component accepts
+interface Props extends HTMLAttributes<'section'> {
+  sources: VideoSource[];     
+  posterSrc?: string;         // Optional: Image to show while video loads
+  parallaxStrength?: number;
+  minHeight?: string;
+}
+
+// Get props and set defaults
+const {
+    sources, // Use the new sources array
+    posterSrc,
+    parallaxStrength = 0.2, // Slightly less intense default for video?
+    minHeight = '400px',
+  ...rest // Pass through any other attributes like class, id, etc.
+} = Astro.props;
+
+// Generate a unique ID for targeting with script
+const uniqueId = `parallax-video-${crypto.randomUUID().slice(0, 8)}`;
+
+// Calculate an initial offset based on strength to slightly center the taller video
+// This helps prevent seeing the top/bottom edges immediately.
+// A taller video (e.g., 140% height) needs to be shifted down by (140-100)/2 = 20% of its own height initially.
+// But since we use translateY, we calculate the pixel offset in the script.
+// Let's start it visually centered based on typical expected movement.
+// A negative initial Y helps show the middle. `- (videoHeight - containerHeight) / 2`
+// We estimate this as roughly `- containerHeight * parallaxStrength`? Needs tuning.
+// For simplicity, let's start at 0 and let the script adjust.
+---
+
+<section
+  id={uniqueId}
+  class:list={["video-divider-container", rest.class]}
+  style={{ minHeight: minHeight }}
+  {...rest}
+>
+  {/* Video element needs to be taller than the container for parallax */}
+  <video
+    class="parallax-video"
+    loop
+    muted       
+    playsinline 
+    autoplay
+    preload="auto"
+    poster={posterSrc}
+    aria-hidden="true"
+  >
+  {sources.map(source => (
+    <source src={source.src} type={source.type} />
+  ))}
+    <!-- Add fallback <source> elements here if needed (e.g., webm) -->
+    Your browser does not support the video tag.
+  </video>
+</section>
+
+<style define:vars={{ uniqueId: `#${uniqueId}` }}>
+  .video-divider-container {
+    position: relative; /* Establishes positioning context */
+    overflow: hidden;  /* Hides the parts of the video that move outside */
+    width: 100%;
+    background-color: var(--color-bg-dark, #2a2a2a); /* Fallback background */
+    /* min-height is set via inline style prop */
+  }
+
+  .parallax-video {
+    position: absolute;
+    top: -20%;   /* Start shifted up slightly (adjust percentage based on strength/desired effect) */
+    left: 0;
+    width: 100%;
+    height: 140%; /* !!! Make video taller than container (e.g., 140%) */
+                 /* Needs to be tall enough to cover movement range */
+    object-fit: cover;
+    /* transform: translateY(0px); Set initial in JS if needed */
+    will-change: transform;
+    /* transition: transform 0.1s linear; Maybe too jittery for video */
+    z-index: 0; /* Ensure it's behind any potential content */
+  }
+</style>
+
+<script define:vars={{ uniqueId, parallaxStrength }}>
+  // Client-side script for video parallax effect
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById(uniqueId);
+    if (!container) return;
+
+    const videoElement = container.querySelector('.parallax-video');
+    if (!videoElement) return;
+
+    // Function to update parallax effect
+    function updateParallax() {
+      if (!container || !videoElement) return; // Guard clause
+
+      const rect = container.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const containerHeight = container.offsetHeight; // Use actual rendered height
+
+       // Calculate the center of the container relative to the viewport center
+      const scrollCenterOffset = (rect.top + containerHeight / 2) - (viewportHeight / 2);
+
+      // Calculate translateY: Negative offset * strength makes it move slower/opposite
+      // We also need to account for the initial top offset (-20% of video height)
+      // and the fact the video is taller (140% height).
+      // The total range of movement needed is (videoHeight - containerHeight).
+      // Let's try a simpler calculation first based on center offset.
+      const translateYValue = -scrollCenterOffset * parallaxStrength;
+
+      // Apply the transform
+      // We combine the initial offset (built into the CSS `top: -20%`) with the dynamic scroll offset
+      videoElement.style.transform = `translateY(${translateYValue}px)`;
+
+       // --- Alternative Calculation Attempt (more complex) ---
+       // // Calculate how far container center is from viewport center (normalized: -0.5 to +0.5)
+       // const centerOffsetNormalized = scrollCenterOffset / viewportHeight;
+       // // Max possible translation needed = (videoElementHeight - containerHeight) / 2
+       // // Video element height is tricky as it's % based, maybe use containerHeight * scaleFactor?
+       // const videoScaleFactor = 1.4; // Matches CSS height: 140%
+       // const maxTranslate = (containerHeight * videoScaleFactor - containerHeight) / 2;
+       // const translateY = -centerOffsetNormalized * maxTranslate * 2 * parallaxStrength; // Adjust multiplier as needed
+       // videoElement.style.transform = `translateY(${translateY}px)`;
+    }
+
+    // Throttle function (same as before)
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+
+    // Throttled scroll handler using requestAnimationFrame
+    const handleScroll = throttle(() => {
+      requestAnimationFrame(updateParallax);
+    }, 16); // ~60fps
+
+    // Use Intersection Observer (same as before)
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          window.addEventListener('scroll', handleScroll, { passive: true });
+          requestAnimationFrame(updateParallax); // Initial calculation
+        } else {
+          window.removeEventListener('scroll', handleScroll);
+        }
+      });
+    }, { rootMargin: '100px', threshold: 0 }); // Start effect slightly before fully visible
+
+    // Start observing
+    observer.observe(container);
+
+  });
+</script>
