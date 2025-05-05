@@ -9,6 +9,40 @@ import VideoDivider from '../components/VideoDivider.astro';
 import WhyChooseHills from '../components/WhyChooseHills.astro';
 import Footer from '../components/Footer.astro';
 
+// Hero Images
+import heroMobile1x from '../assets/hero_spunbond_1024_1x.png';
+import heroMobile2x from '../assets/hero_spunbond_1024_2x.png';
+import heroMobile3x from '../assets/hero_spunbond_1024_3x.png';
+import heroDesktopMid1x from '../assets/hero_spunbond_1920_1x.png';
+import heroDesktopMid2x from '../assets/hero_spunbond_1920_2x.png';
+import heroDesktopMid3x from '../assets/hero_spunbond_1920_3x.png';
+import heroDesktopLarge1x from '../assets/hero_spunbond_2560_1x.png';
+import heroDesktopLarge2x from '../assets/hero_spunbond_2560_2x.png';
+import heroDesktopLarge3x from '../assets/hero_spunbond_2560_3x.png';
+
+// Custom System Design Section Images
+// Images for Picture Set 1
+import csd1Mobile1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd1Mobile2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd1Mobile3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd1Desktop1x from '../assets/spunbond_csd_2560_1x.png';
+import csd1Desktop2x from '../assets/spunbond_csd_2560_2x.png';
+import csd1Desktop3x from '../assets/spunbond_csd_2560_3x.png';
+import csd1Fallback from '../assets/spinbeam_1440_1x.png';
+
+// Images for Picture Set 2 
+import csd2Mobile1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd2Mobile2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd2Mobile3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd2Desktop1x from '../assets/spunbond_csd_2_2560_1x.png'; 
+import csd2Desktop2x from '../assets/spunbond_csd_2_2560_2x.png';
+import csd2Desktop3x from '../assets/spunbond_csd_2_2560_3x.png';
+import csd2Fallback from '../assets/spinbeam_1440_1x.png'; 
+
+// Image Divider Images
+import footerDividerDesktop from '../assets/image-divider_footer.png';
+import footerDividerMobile from '../assets/image-divider_footer.png';
+
 // --- Define Content Specific to the Spunbond Page ---
 const pageMeta = {
     title: "Spunbond Systems - Hills Inc.",
@@ -25,28 +59,28 @@ const spunbondHero: HeroProps = {
 	title: "SPUNBOND",
 	subheading: "Hills Inc.'s custom Spunbond systems enable the efficient production of high-quality nonwoven fabrics using a continuous, one-step process. By extruding molten polymer through a spinneret and bonding the resulting filaments, Spunbond technology creates strong, durable, and versatile nonwoven materials for a wide range of applications.",
 	pictureSources: [
-	{
+	 {
       media: "(max-width: 1024px)",
-      srcset: "../src/assets/hero_spunbond_1024_1x.png 1x, ../src/assets/hero_spunbond_1024_2x.png 2x, ../src/assets/hero_spunbond_1024_3x.png 3x", 
-      type: "image/webp"
+      // Construct srcset from imported image src properties
+      srcset: `${heroMobile1x.src} 1x, ${heroMobile2x.src} 2x, ${heroMobile3x.src} 3x`,
+      type: `image/${heroMobile1x.format}` // Use format from imported metadata
     },
-     
      {
        media: "(min-width: 1025px) and (max-width: 1920px)",
-       srcset: "../src/assets/hero_spunbond_1920_1x.png 1x, ../src/assets/hero_spunbond_1920_2x.png 2x, ../src/assets/hero_spunbond_1920_3x.png 3x", 
-       type: "image/webp"
+       srcset: `${heroDesktopMid1x.src} 1x, ${heroDesktopMid2x.src} 2x, ${heroDesktopMid3x.src} 3x`,
+       type: `image/${heroDesktopMid1x.format}`
      },
-
      {
        media: "(min-width: 1921px)",
-       srcset: "../src/assets/hero_spunbond_2560_1x.png 1x, ../src/assets/hero_spunbond_2560_2x.png 2x, ../src/assets/hero_spunbond_2560_3x.png 3x" 
+       srcset: `${heroDesktopLarge1x.src} 1x, ${heroDesktopLarge2x.src} 2x, ${heroDesktopLarge3x.src} 3x`,
+       type: `image/${heroDesktopLarge1x.format}` // Assuming PNG, adjust if different
      }
     ],
     fallbackImage: {
-        src: "../src/assets/hero_spunbond_2560_1x.png", // Fallback for older browsers
+        src: heroDesktopLarge1x.src, // Use src from imported fallback image
         alt: "Stylized drawing of a Hills Inc. spunbond machine.",
-		width: 1315, // Example intrinsic width of default image
-        height: 800  // Example intrinsic height of default image
+		width: heroDesktopLarge1x.width,  // Use width from imported metadata
+        height: heroDesktopLarge1x.height // Use height from imported metadata
     },
 	imageLayout: "layout-1"
 };
@@ -73,64 +107,38 @@ const spunbondRow1Data = {
   pictureSources1: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",  
-      type: "image/webp"
+      srcset: `${csd1Mobile1x.src} 1x, ${csd1Mobile2x.src} 2x, ${csd1Mobile3x.src} 3x`,
+      type: `image/${csd1Mobile1x.format}` 
     },
-     
-     {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/spunbond_csd_2560_1x.png 1x, ../src/assets/spunbond_csd_2560_2x.png 2x, ../src/assets/spunbond_csd_2560_3x.png 3x", 
-       type: "image/webp"
+    {
+       media: "(min-width: 834px)", 
+       srcset: `${csd1Desktop1x.src} 1x, ${csd1Desktop2x.src} 2x, ${csd1Desktop3x.src} 3x`,
+       type: `image/${csd1Desktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/spunbond_csd_2560_1x.png 1x, ../src/assets/spunbond_csd_2560_2x.png 2x, ../src/assets/spunbond_csd_2560_3x.png 3x" 
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/spunbond_csd_2560_1x.png 1x, ../src/assets/spunbond_csd_2560_2x.png 2x, ../src/assets/spunbond_csd_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage1: {
-    src: "../src/assets/spinbeam_1440_1x.png",
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 1000, // Intrinsic width of the DEFAULT (src) image
-    height: 500 // Intrinsic height of the DEFAULT (src) image
+    src: csd1Fallback.src,
+    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment - Image 1',
+    width: csd1Fallback.width,
+    height: csd1Fallback.height
   },
   pictureSources2: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x", 
-      type: "image/webp"
+      srcset: `${csd2Mobile1x.src} 1x, ${csd2Mobile2x.src} 2x, ${csd2Mobile3x.src} 3x`,
+      type: `image/${csd2Mobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/spunbond_csd_2_2560_1x.png 1x, ../src/assets/spunbond_csd_2_2560_2x.png 2x, ../src/assets/spunbond_csd_2_2560_3x.png 3x", 
-       type: "image/webp"
+       media: "(min-width: 834px)",
+       srcset: `${csd2Desktop1x.src} 1x, ${csd2Desktop2x.src} 2x, ${csd2Desktop3x.src} 3x`,
+       type: `image/${csd2Desktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/spunbond_csd_2_2560_1x.png 1x, ../src/assets/spunbond_csd_2_2560_2x.png 2x, ../src/assets/spunbond_csd_2_2560_3x.png 3x" 
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/spunbond_csd_2_2560_1x.png 1x, ../src/assets/spunbond_csd_2_2560_2x.png 2x, ../src/assets/spunbond_csd_2_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage2: {
-    src: "../src/assets/spinbeam_1440_1x.png",
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 603, // Intrinsic width of the DEFAULT (src) image
-    height: 377 // Intrinsic height of the DEFAULT (src) image
+    src: csd2Fallback.src,
+    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment - Image 2',
+    width: csd2Fallback.width,
+    height: csd2Fallback.height
   }
 };
 
@@ -194,17 +202,16 @@ const whyChooseData = {
 };
 
 const footerDividerData = {
-    // Replace with your actual image paths (relative to /public/)
-    desktopImageSrc: "../src/assets/image-divider_footer.png",
-    mobileImageSrc: "../src/assets/image-divider_footer.png", // Use same or different image
-    alt: "Close-up texture of nonwoven spunbond fabric.",
+    desktopImageSrc: footerDividerDesktop.src,
+    mobileImageSrc: footerDividerMobile.src,
+    alt: "Abstract texture representing nonwoven fabric.",
 };
 
 const spunbondVideoDividerData = {
-    sources: [
-        { src: "../src/assets/video-divider_spunbond.mp4", type: "video/mp4" }
-    ],
-    posterSrc: "../src/assets/video-poster.jpg",
+sources: [
+{ src: "video-divider_spunbond.mp4", type: "video/mp4" }
+],
+posterSrc: "video-poster.jpg",
 };
 
 ---
@@ -217,7 +224,6 @@ const spunbondVideoDividerData = {
     <main>
 		<ProcessHero {...spunbondHero} />
 		<VideoDivider {...spunbondVideoDividerData} />
-		<!-- <ImageDivider {...spunbondDividerData} /> -->
         <CustomSystemDesignSection
             row1Data={spunbondRow1Data}
             columnContainerData={spunbondColumnContainerData}

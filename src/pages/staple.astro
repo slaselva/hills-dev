@@ -9,6 +9,40 @@ import WhyChooseHills from '../components/WhyChooseHills.astro';
 import ImageDivider from '../components/ImageDivider.astro';
 import Footer from '../components/Footer.astro';
 
+// Hero Images
+import heroMobile1x from '../assets/hero_spunbond_1024_1x.png';
+import heroMobile2x from '../assets/hero_spunbond_1024_2x.png';
+import heroMobile3x from '../assets/hero_spunbond_1024_3x.png';
+import heroDesktopMid1x from '../assets/hero_spunbond_1920_1x.png';
+import heroDesktopMid2x from '../assets/hero_spunbond_1920_2x.png';
+import heroDesktopMid3x from '../assets/hero_spunbond_1920_3x.png';
+import heroDesktopLarge1x from '../assets/hero_spunbond_2560_1x.png';
+import heroDesktopLarge2x from '../assets/hero_spunbond_2560_2x.png';
+import heroDesktopLarge3x from '../assets/hero_spunbond_2560_3x.png';
+
+// CSD Row 1 Images
+// Set 1
+import csd1Row1Mobile1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd1Row1Mobile2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd1Row1Mobile3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd1Row1Desktop1x from '../assets/meltblown_csd_1_2560_1x.png';
+import csd1Row1Desktop2x from '../assets/meltblown_csd_1_2560_2x.png';
+import csd1Row1Desktop3x from '../assets/meltblown_csd_1_2560_3x.png';
+import csd1Row1Fallback from '../assets/spinbeam_1440_1x.png';
+
+// Set 2
+import csd2Row1Mobile1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd2Row1Mobile2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd2Row1Mobile3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd2Row1Desktop1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd2Row1Desktop2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd2Row1Desktop3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd2Row1Fallback from '../assets/spinbeam_1440_1x.png';
+
+// Dividers
+import footerDividerDesktop from '../assets/image-divider_footer.png';
+import footerDividerMobile from '../assets/image-divider_footer.png';
+
 // --- Define Content Specific to the Spunbond Page ---
 const pageMeta = {
     title: "Staple Systems - Hills Inc.",
@@ -24,35 +58,34 @@ const stapleHero: HeroProps = {
 	title: "STAPLE",
 	subheading: "Hills Inc.'s custom Staple fiber systems enable the production of high-quality, short-cut fibers using a multi-step process that ensures consistent fiber properties and performance. By extruding molten polymer through a spinnerette, drawing, crimping, and cutting the resulting filaments, Staple fiber technology creates versatile fibers for a wide range of applications across various industries.",
 	pictureSources: [
-	{
+	 {
       media: "(max-width: 1024px)",
-      srcset: "../src/assets/hero_spunbond_1024_1x.png 1x, ../src/assets/hero_spunbond_1024_2x.png 2x, ../src/assets/hero_spunbond_1024_3x.png 3x", 
-      type: "image/webp"
+      srcset: `${heroMobile1x.src} 1x, ${heroMobile2x.src} 2x, ${heroMobile3x.src} 3x`,
+      type: `image/${heroMobile1x.format}`
     },
-     
      {
        media: "(min-width: 1025px) and (max-width: 1920px)",
-       srcset: "../src/assets/hero_spunbond_1920_1x.png 1x, ../src/assets/hero_spunbond_1920_2x.png 2x, ../src/assets/hero_spunbond_1920_3x.png 3x", 
-       type: "image/webp"
+       srcset: `${heroDesktopMid1x.src} 1x, ${heroDesktopMid2x.src} 2x, ${heroDesktopMid3x.src} 3x`,
+       type: `image/${heroDesktopMid1x.format}`
      },
-
      {
        media: "(min-width: 1921px)",
-       srcset: "../src/assets/hero_spunbond_2560_1x.png 1x, ../src/assets/hero_spunbond_2560_2x.png 2x, ../src/assets/hero_spunbond_2560_3x.png 3x" 
+       srcset: `${heroDesktopLarge1x.src} 1x, ${heroDesktopLarge2x.src} 2x, ${heroDesktopLarge3x.src} 3x`,
+       type: `image/${heroDesktopLarge1x.format}`
      }
     ],
     fallbackImage: {
-        src: "../src/assets/hero_spunbond_2560_1x.png", // Fallback for older browsers
-        alt: "Stylized drawing of a Hills Inc. spunbond machine.",
-		width: 1315, // Example intrinsic width of default image
-        height: 800  // Example intrinsic height of default image
+        src: heroDesktopLarge1x.src,
+        alt: "Stylized drawing of a Hills Inc. staple fiber machine.",
+		width: heroDesktopLarge1x.width,
+        height: heroDesktopLarge1x.height
     },
     imageLayout: "layout-1"
 };
 
 const stapleVideoDividerData = {
     sources: [
-        { src: "../src/assets/video-divider_1.mp4", type: "video/mp4" }
+        { src: "video-divider_1.mp4", type: "video/mp4" }
     ],
     posterSrc: "../src/assets/video-poster.jpg",
 };
@@ -79,61 +112,38 @@ const stapleRow1Data = {
   pictureSources1: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",
+      srcset: `${csd1Row1Mobile1x.src} 1x, ${csd1Row1Mobile2x.src} 2x, ${csd1Row1Mobile3x.src} 3x`,
+      type: `image/${csd1Row1Mobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
+       media: "(min-width: 834px)",
+       srcset: `${csd1Row1Desktop1x.src} 1x, ${csd1Row1Desktop2x.src} 2x, ${csd1Row1Desktop3x.src} 3x`,
+       type: `image/${csd1Row1Desktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage1: {
-    src: "../src/assets/spinbeam_1440_1x.png", // Default fallback for old browsers
-    // You could add srcset here too if needed for the absolute fallback
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 1000, // Intrinsic width of the DEFAULT (src) image
-    height: 500 // Intrinsic height of the DEFAULT (src) image
+    src: csd1Row1Fallback.src,
+    alt: 'Detailed schematic of Hills Inc. Staple fiber equipment - Image 1', // Updated Alt
+    width: csd1Row1Fallback.width,
+    height: csd1Row1Fallback.height
   },
   pictureSources2: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",
+      srcset: `${csd2Row1Mobile1x.src} 1x, ${csd2Row1Mobile2x.src} 2x, ${csd2Row1Mobile3x.src} 3x`,
+      type: `image/${csd2Row1Mobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x"
+       media: "(min-width: 834px)",
+       srcset: `${csd2Row1Desktop1x.src} 1x, ${csd2Row1Desktop2x.src} 2x, ${csd2Row1Desktop3x.src} 3x`,
+       type: `image/${csd2Row1Desktop3x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x"  
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage2: {
-    src: "../src/assets/spinbeam_1440_1x.png",
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 603, // Intrinsic width of the DEFAULT (src) image
-    height: 377 // Intrinsic height of the DEFAULT (src) image
+    src: csd2Row1Fallback.src,
+    alt: 'Detailed schematic of Hills Inc. Staple fiber equipment - Image 2', // Updated Alt
+    width: csd2Row1Fallback.width,
+    height: csd2Row1Fallback.height
   }
 };
 
@@ -197,10 +207,9 @@ const whyChooseData = {
 };
 
 const footerDividerData = {
-    // Replace with your actual image paths (relative to /public/)
-    desktopImageSrc: "../src/assets/image-divider_footer.png",
-    mobileImageSrc: "../src/assets/image-divider_footer.png", // Use same or different image
-    alt: "Close-up texture of nonwoven spunbond fabric.",
+    desktopImageSrc: footerDividerDesktop.src,
+    mobileImageSrc: footerDividerMobile.src,
+    alt: "Abstract texture representing nonwoven fabric.",
 };
 
 ---

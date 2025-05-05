@@ -9,6 +9,40 @@ import WhyChooseHills from '../components/WhyChooseHills.astro';
 import ImageDivider from '../components/ImageDivider.astro';
 import Footer from '../components/Footer.astro';
 
+// Hero Images
+import heroMeltblown1024_1x from '../assets/hero_meltblown_2560_1x.png';
+import heroMeltblown1024_2x from '../assets/hero_meltblown_2560_2x.png';
+import heroMeltblown1024_3x from '../assets/hero_meltblown_2560_3x.png';
+import heroMeltblown1920_1x from '../assets/hero_meltblown_2560_1x.png'; 
+import heroMeltblown1920_2x from '../assets/hero_meltblown_2560_2x.png';
+import heroMeltblown1920_3x from '../assets/hero_meltblown_2560_3x.png';
+import heroMeltblown2560_1x from '../assets/hero_meltblown_2560_1x.png';
+import heroMeltblown2560_2x from '../assets/hero_meltblown_2560_2x.png';
+import heroMeltblown2560_3x from '../assets/hero_meltblown_2560_3x.png';
+
+// CSD Row 1 Images
+// Set 1
+import csd1Row1Mobile1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd1Row1Mobile2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd1Row1Mobile3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd1Row1Desktop1x from '../assets/meltblown_csd_1_2560_1x.png'; 
+import csd1Row1Desktop2x from '../assets/meltblown_csd_1_2560_2x.png';
+import csd1Row1Desktop3x from '../assets/meltblown_csd_1_2560_3x.png';
+import csd1Row1Fallback from '../assets/spinbeam_1440_1x.png'; 
+
+// Set 2
+import csd2Row1Mobile1x from '../assets/spinbeam_csd_2_2560_1x.png';
+import csd2Row1Mobile2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd2Row1Mobile3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd2Row1Desktop1x from '../assets/spinbeam_csd_2_2560_1x.png'; 
+import csd2Row1Desktop2x from '../assets/spinbeam_csd_2_2560_2x.png';
+import csd2Row1Desktop3x from '../assets/spinbeam_csd_2_2560_3x.png';
+import csd2Row1Fallback from '../assets/spinbeam_1440_1x.png'; 
+
+// Dividers
+import footerDividerDesktop from '../assets/image-divider_footer.png';
+import footerDividerMobile from '../assets/image-divider_footer.png';
+
 // --- Define Content Specific to the Spunbond Page ---
 const pageMeta = {
     title: "Meltblown Systems - Hills Inc.",
@@ -24,37 +58,36 @@ const meltblownHero: HeroProps = {
 	title: "MELTBLOWN",
 	subheading: "Hills Inc.'s meltblown systems utilize our propietary polymer metering and distribution technology to produce high-quality nonwoven fabrics with fine fibers and tailored properties. By extruding molten polymer through a linear die and attenuating the fibers with high-velocity hot air, meltblown technology creates self-bonding webs.",
 	pictureSources: [
-	{
+	 {
       media: "(max-width: 1024px)",
-      srcset: "../src/assets/hero_meltblown_2560_1x.png 1x, ../src/assets/hero_meltblown_2560_2x.png 2x, ../src/assets/hero_meltblown_2560_3x.png 3x", 
-      type: "image/webp"
+      srcset: `${heroMeltblown1024_1x.src} 1x, ${heroMeltblown1024_2x.src} 2x, ${heroMeltblown1024_3x.src} 3x`,
+      type: `image/${heroMeltblown1024_1x.format}`
     },
-     
      {
        media: "(min-width: 1025px) and (max-width: 1920px)",
-       srcset: "../src/assets/hero_meltblown_2560_1x.png 1x, ../src/assets/hero_meltblown_2560_2x.png 2x, ../src/assets/hero_meltblown_2560_3x.png 3x", 
-       type: "image/webp"
+       srcset: `${heroMeltblown1920_1x.src} 1x, ${heroMeltblown1920_2x.src} 2x, ${heroMeltblown1920_3x.src} 3x`,
+       type: `image/${heroMeltblown1920_1x.format}`
      },
-
      {
        media: "(min-width: 1921px)",
-       srcset: "../src/assets/hero_meltblown_2560_1x.png 1x, ../src/assets/hero_meltblown_2560_2x.png 2x, ../src/assets/hero_meltblown_2560_3x.png 3x" 
+       srcset: `${heroMeltblown2560_1x.src} 1x, ${heroMeltblown2560_2x.src} 2x, ${heroMeltblown2560_3x.src} 3x`,
+       type: `image/${heroMeltblown2560_1x.format}`
      }
     ],
     fallbackImage: {
-        src: "../src/assets/hero_meltblown_2560_1x.png", // Fallback for older browsers
-        alt: "Stylized drawing of a Hills Inc. spunbond machine.",
-		width: 1315, // Example intrinsic width of default image
-        height: 800  // Example intrinsic height of default image
+        src: heroMeltblown2560_1x.src,
+        alt: "Stylized drawing of a Hills Inc. meltblown machine.",
+		width: heroMeltblown2560_1x.width,
+        height: heroMeltblown2560_1x.height
     },
-    imageLayout: "layout-1"
+    imageLayout: "layout-1" 
 };
 
 const meltblownVideoDividerData = {
-    sources: [
-        { src: "../src/assets/video-divider_meltblown.mp4", type: "video/mp4" }
-    ],
-    posterSrc: "../src/assets/video-poster.jpg",
+  sources: [
+		{ src: "video-divider_meltblown.mp4", type: "video/mp4" }
+	],
+	posterSrc: "video-poster.jpg",
 };
 
 // ** EXAMPLE SVG STRINGS **
@@ -81,61 +114,38 @@ const meltblownRow1Data = {
   pictureSources1: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",
+      srcset: `${csd1Row1Mobile1x.src} 1x, ${csd1Row1Mobile2x.src} 2x, ${csd1Row1Mobile3x.src} 3x`,
+      type: `image/${csd1Row1Mobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
+       media: "(min-width: 834px)",
+       srcset: `${csd1Row1Desktop1x.src} 1x, ${csd1Row1Desktop2x.src} 2x, ${csd1Row1Desktop3x.src} 3x`,
+       type: `image/${csd1Row1Desktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/meltblown_csd_1_2560_1x.png 1x, ../src/assets/meltblown_csd_1_2560_2x.png 2x, ../src/assets/meltblown_csd_1_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage1: {
-    src: "../src/assets/spinbeam_1440_1x.png", // Default fallback for old browsers
-    // You could add srcset here too if needed for the absolute fallback
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 1000, // Intrinsic width of the DEFAULT (src) image
-    height: 500 // Intrinsic height of the DEFAULT (src) image
+    src: csd1Row1Fallback.src,
+    alt: 'Detailed schematic of Hills Inc. Meltblown fiber extrusion equipment - Image 1', // Updated Alt
+    width: csd1Row1Fallback.width,
+    height: csd1Row1Fallback.height
   },
   pictureSources2: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x",
+      srcset: `${csd2Row1Mobile1x.src} 1x, ${csd2Row1Mobile2x.src} 2x, ${csd2Row1Mobile3x.src} 3x`,
+      type: `image/${csd2Row1Mobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x"
+       media: "(min-width: 834px)",
+       srcset: `${csd2Row1Desktop1x.src} 1x, ${csd2Row1Desktop2x.src} 2x, ${csd2Row1Desktop3x.src} 3x`,
+       type: `image/${csd2Row1Desktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x"  
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/spinbeam_csd_2_2560_1x.png 1x, ../src/assets/spinbeam_csd_2_2560_2x.png 2x, ../src/assets/spinbeam_csd_2_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage2: {
-    src: "../src/assets/spinbeam_1440_1x.png",
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 603, // Intrinsic width of the DEFAULT (src) image
-    height: 377 // Intrinsic height of the DEFAULT (src) image
+    src: csd2Row1Fallback.src,
+    alt: 'Detailed schematic of Hills Inc. Meltblown fiber extrusion equipment - Image 2', // Updated Alt
+    width: csd2Row1Fallback.width,
+    height: csd2Row1Fallback.height
   }
 };
 
@@ -199,10 +209,9 @@ const whyChooseData = {
 };
 
 const footerDividerData = {
-    // Replace with your actual image paths (relative to /public/)
-    desktopImageSrc: "../src/assets/image-divider_footer.png",
-    mobileImageSrc: "../src/assets/image-divider_footer.png", // Use same or different image
-    alt: "Close-up texture of nonwoven spunbond fabric.",
+    desktopImageSrc: footerDividerDesktop.src,
+    mobileImageSrc: footerDividerMobile.src,
+    alt: "Abstract texture representing nonwoven fabric.",
 };
 
 ---

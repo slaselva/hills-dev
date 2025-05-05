@@ -9,6 +9,39 @@ import WhyChooseHills from '../components/WhyChooseHills.astro';
 import ImageDivider from '../components/ImageDivider.astro';
 import Footer from '../components/Footer.astro';
 
+// Hero Images
+import heroFilament1024_1x from '../assets/hero_filament_2560_1x.png';
+import heroFilament1024_2x from '../assets/hero_filament_2560_2x.png';
+import heroFilament1024_3x from '../assets/hero_filament_2560_3x.png';
+import heroFilament1920_1x from '../assets/hero_filament_2560_1x.png';
+import heroFilament1920_2x from '../assets/hero_filament_2560_2x.png';
+import heroFilament1920_3x from '../assets/hero_filament_2560_3x.png';
+import heroFilament2560_1x from '../assets/hero_filament_2560_1x.png';
+import heroFilament2560_2x from '../assets/hero_filament_2560_2x.png';
+import heroFilament2560_3x from '../assets/hero_filament_2560_3x.png';
+
+// CSD Row 1 Images
+// Set 1
+import csd1Row1FilamentMobile1x from '../assets/filament_csd_2_2560_1x.png';
+import csd1Row1FilamentMobile2x from '../assets/filament_csd_2_2560_2x.png';
+import csd1Row1FilamentMobile3x from '../assets/filament_csd_2_2560_3x.png';
+import csd1Row1FilamentDesktop1x from '../assets/filament_csd_1_2560_1x.png';
+import csd1Row1FilamentDesktop2x from '../assets/filament_csd_1_2560_2x.png';
+import csd1Row1FilamentDesktop3x from '../assets/filament_csd_1_2560_3x.png';
+import csd1Row1FilamentFallback from '../assets/spinbeam_1440_1x.png'; 
+// Set 2
+import csd2Row1FilamentMobile1x from '../assets/filament_csd_2_2560_1x.png';
+import csd2Row1FilamentMobile2x from '../assets/filament_csd_2_2560_2x.png';
+import csd2Row1FilamentMobile3x from '../assets/filament_csd_2_2560_3x.png';
+import csd2Row1FilamentDesktop1x from '../assets/filament_csd_2_2560_1x.png';
+import csd2Row1FilamentDesktop2x from '../assets/filament_csd_2_2560_2x.png';
+import csd2Row1FilamentDesktop3x from '../assets/filament_csd_2_2560_3x.png';
+import csd2Row1FilamentFallback from '../assets/spinbeam_1440_1x.png'; 
+
+// Dividers
+import footerDividerDesktop from '../assets/image-divider_footer.png';
+import footerDividerMobile from '../assets/image-divider_footer.png';
+
 // --- Define Content Specific to the Filament Page ---
 const pageMeta = {
     title: "Filament Systems - Hills Inc.",
@@ -24,35 +57,34 @@ const filamentHero: HeroProps = {
 	title: "FILAMENT",
 	subheading: "Hills Inc.'s filament fiber extrusion systems are designed for the precision production of continuous filaments with customized cross-sectional profiles and superior mechanical properties. By extruding molten polymer through carefully engineered spinnerets, our technology enables the creation of high-performance fibers used in a wide range of industrial, technical, and textile applications.",
 	pictureSources: [
-	{
+	 {
       media: "(max-width: 1024px)",
-      srcset: "../src/assets/hero_filament_2560_1x.png 1x, ../src/assets/hero_filament_2560_2x.png 2x, ../src/assets/hero_filament_2560_3x.png 3x", 
-      type: "image/webp"
+      srcset: `${heroFilament1024_1x.src} 1x, ${heroFilament1024_2x.src} 2x, ${heroFilament1024_3x.src} 3x`,
+      type: `image/${heroFilament1024_1x.format}`
     },
-     
      {
        media: "(min-width: 1025px) and (max-width: 1920px)",
-       srcset: "../src/assets/hero_filament_2560_1x.png 1x, ../src/assets/hero_filament_2560_2x.png 2x, ../src/assets/hero_filament_2560_3x.png 3x", 
-       type: "image/webp"
+       srcset: `${heroFilament1920_1x.src} 1x, ${heroFilament1920_2x.src} 2x, ${heroFilament1920_3x.src} 3x`,
+       type: `image/${heroFilament1920_1x.format}`
      },
-
      {
        media: "(min-width: 1921px)",
-       srcset: "../src/assets/hero_filament_2560_1x.png 1x, ../src/assets/hero_filament_2560_2x.png 2x, ../src/assets/hero_filament_2560_3x.png 3x" 
+       srcset: `${heroFilament2560_1x.src} 1x, ${heroFilament2560_2x.src} 2x, ${heroFilament2560_3x.src} 3x`,
+       type: `image/${heroFilament2560_1x.format}`
      }
     ],
     fallbackImage: {
-        src: "../src/assets/hero_filament_2560_1x.png", // Fallback for older browsers
-        alt: "Stylized drawing of a Hills Inc. spunbond machine.",
-		width: 875, // Example intrinsic width of default image
-        height: 843  // Example intrinsic height of default image
+        src: heroFilament2560_1x.src,
+        alt: "Stylized drawing of a Hills Inc. filament extrusion line.", // Updated Alt
+		width: heroFilament2560_1x.width,
+        height: heroFilament2560_1x.height
     },
     imageLayout: 'layout-2'
 };
 
 const filamentVideoDividerData = {
     sources: [
-        { src: "../src/assets/video-divider_filament.mp4", type: "video/mp4" }
+        { src: "video-divider_filament.mp4", type: "video/mp4" }
     ],
     posterSrc: "../src/assets/video-poster.jpg",
 };
@@ -78,61 +110,38 @@ const filamentRow1Data = {
   pictureSources1: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/filament_csd_2_2560_1x.png 1x, ../src/assets/filament_csd_2_2560_2x.png 2x, ../src/assets/filament_csd_2_2560_3x.png 3x" 
+      srcset: `${csd1Row1FilamentMobile1x.src} 1x, ${csd1Row1FilamentMobile2x.src} 2x, ${csd1Row1FilamentMobile3x.src} 3x`,
+      type: `image/${csd1Row1FilamentMobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/filament_csd_1_2560_1x.png 1x, ../src/assets/filament_csd_1_2560_2x.png 2x, ../src/assets/filament_csd_1_2560_3x.png 3x"
+       media: "(min-width: 834px)",
+       srcset: `${csd1Row1FilamentDesktop1x.src} 1x, ${csd1Row1FilamentDesktop2x.src} 2x, ${csd1Row1FilamentDesktop3x.src} 3x`,
+       type: `image/${csd1Row1FilamentDesktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/filament_csd_1_2560_1x.png 1x, ../src/assets/filament_csd_1_2560_2x.png 2x, ../src/assets/filament_csd_1_2560_3x.png 3x"
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/filament_csd_1_2560_1x.png 1x, ../src/assets/filament_csd_1_2560_2x.png 2x, ../src/assets/filament_csd_1_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage1: {
-    src: "../src/assets/spinbeam_1440_1x.png", // Default fallback for old browsers
-    // You could add srcset here too if needed for the absolute fallback
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 1000, // Intrinsic width of the DEFAULT (src) image
-    height: 500 // Intrinsic height of the DEFAULT (src) image
+    src: csd1Row1FilamentFallback.src,
+    alt: 'Detailed schematic of Hills Inc. Filament extrusion equipment - Image 1', // Updated Alt
+    width: csd1Row1FilamentFallback.width,
+    height: csd1Row1FilamentFallback.height
   },
   pictureSources2: [
     {
       media: "(max-width: 833px)",
-      srcset: "../src/assets/filament_csd_2_2560_1x.png 1x, ../src/assets/filament_csd_2_2560_2x.png 2x, ../src/assets/filament_csd_2_2560_3x.png 3x" 
+      srcset: `${csd2Row1FilamentMobile1x.src} 1x, ${csd2Row1FilamentMobile2x.src} 2x, ${csd2Row1FilamentMobile3x.src} 3x`,
+      type: `image/${csd2Row1FilamentMobile1x.format}`
     },
-     
      {
-       media: "(min-width: 834px) and (max-width: 1023px)",
-       srcset: "../src/assets/filament_csd_2_2560_1x.png 1x, ../src/assets/filament_csd_2_2560_2x.png 2x, ../src/assets/filament_csd_2_2560_3x.png 3x" 
+       media: "(min-width: 834px)",
+       srcset: `${csd2Row1FilamentDesktop1x.src} 1x, ${csd2Row1FilamentDesktop2x.src} 2x, ${csd2Row1FilamentDesktop3x.src} 3x`,
+       type: `image/${csd2Row1FilamentDesktop1x.format}`
      },
-
-     {
-       media: "(min-width: 1024px) and (max-width: 1439px)",
-       srcset: "../src/assets/filament_csd_2_2560_1x.png 1x, ../src/assets/filament_csd_2_2560_2x.png 2x, ../src/assets/filament_csd_2_2560_3x.png 3x" 
-     },
-     
-     {
-       media: "(min-width: 1440px)",
-       srcset: "../src/assets/filament_csd_2_2560_1x.png 1x, ../src/assets/filament_csd_2_2560_2x.png 2x, ../src/assets/filament_csd_2_2560_3x.png 3x" 
-     }
-     
   ],
   fallbackImage2: {
-    src: "../src/assets/spinbeam_1440_1x.png",
-    // srcset: "/assets/spinbeam-wide.jpg 1x, /assets/spinbeam-wide-2x.jpg 2x",
-    alt: 'Detailed schematic of Hills Inc. Spunbond fiber extrusion equipment',
-    width: 603, // Intrinsic width of the DEFAULT (src) image
-    height: 377 // Intrinsic height of the DEFAULT (src) image
+    src: csd2Row1FilamentFallback.src,
+    alt: 'Detailed schematic of Hills Inc. Filament extrusion equipment - Image 2', // Updated Alt
+    width: csd2Row1FilamentFallback.width,
+    height: csd2Row1FilamentFallback.height
   }
 };
 
@@ -196,10 +205,9 @@ const whyChooseData = {
 };
 
 const footerDividerData = {
-    // Replace with your actual image paths (relative to /public/)
-    desktopImageSrc: "../src/assets/image-divider_footer.png",
-    mobileImageSrc: "../src/assets/image-divider_footer.png", // Use same or different image
-    alt: "Close-up texture of nonwoven spunbond fabric.",
+    desktopImageSrc: footerDividerDesktop.src,
+    mobileImageSrc: footerDividerMobile.src,
+    alt: "Abstract texture representing nonwoven fabric.",
 };
 
 ---
